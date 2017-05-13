@@ -10,13 +10,32 @@ namespace Region.Model
 {
      public enum Oblast
     {
-        Vinnytsia = 1,
-        Volynska = 2,
-        Dnipropetrovsk = 3,
-        Zhytomyr = 4,
-        Zakarpattya = 5
-
-    } 
+        Lutsk,
+        Rivno,
+        Zhytomyr,
+        Kyiv,
+        Lviv,
+        Ternopil,
+        Volynska,
+        Zakarpattya,
+        Cherovtsy,
+        Khmelnitsky,
+        Vinnytsia,
+        Poltava,
+        Odesa,
+        Chernigov,
+        Sumy,
+        Kirovograd,
+        Cherkasy,
+        Nikolaev,
+        Kharkiv,
+        Dnipropetrovsk,
+        Kherson,
+        Crimea,
+        Zaporozhia,
+        Luhansk,
+        Donetsk
+}
     public class Ukraine
     {     
         public const int FACTORS_NUMBER = 11;
@@ -68,10 +87,12 @@ namespace Region.Model
         }
 
         // пересчитать инвестиционную привлекательность регионов
-       double[,] matrix;
 
-        public double [] ObInvestAppRegions()
+       
+
+        public  double [] ObInvestAppRegions()
         {
+            double[,] matrix;
             matrix = new double[FACTORS_NUMBER, REGIONS_COUNT];
             for ( int i=0; i< FACTORS_NUMBER; i++)
                 for ( int j=0; j< REGIONS_COUNT; j++)
