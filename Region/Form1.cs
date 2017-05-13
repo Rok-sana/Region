@@ -20,6 +20,23 @@ namespace Region
         Ukraine ukraine = new Ukraine();
         private string current = null;
 
+        public Form1()
+        {
+            InitializeComponent();
+            image.Refresh();
+            UiInit();
+        }
+
+        private void UiInit()
+        {
+            factorNamelabel0.Text= ukraine.Factors[0].Name;
+            factorNamelabel1.Text = ukraine.Factors[1].Name;
+        }
+        private void UiChange(Oblast id)
+        {
+            factorValuelabel0.Text = ukraine.Regions[id].FactorValues[0].ToString();
+            factorValuelabel1.Text = ukraine.Regions[id].FactorValues[1].ToString();
+        }
         public void  RefColor()
         {
             Graphics g =  image.CreateGraphics();
@@ -30,13 +47,9 @@ namespace Region
                 Color c= AppealToColor(inv, i);             
                 Brush brush = new SolidBrush(c);
                 g.FillPolygon(brush, ukraine.Conturs[name]);
-                
-
+               
             }
-           
-
-
-
+       
         }
 
         private Color AppealToColor(double[] inv, int i)
@@ -48,10 +61,16 @@ namespace Region
         }
 
  
-
         private void pBox_MouseMove(object sender, MouseEventArgs e)
         {
             HiLightRegion(new Point((int)(e.X), (int)(e.Y)));
+            string selected = ukraine.Conturs.GetPoligonePointInto(e.Location);
+            if (selected != null)
+            {
+                Oblast id = (Oblast)Enum.Parse(typeof(Oblast), selected);
+                UiChange(id);
+            }
+           
         }
 
         
@@ -68,13 +87,13 @@ namespace Region
                     g.DrawLines(new Pen(Color.Yellow, 2), ps);
                 }
                 current = selected;
-                Oblast id;
-                if (Enum.TryParse(selected, out id))
-                {
-                    var region = ukraine.Regions.SingleOrDefault(r => r.Id == id);
-                    if (region != null)
-                        textBox1.Text = region.FactorValues[0].ToString();
-                }
+                //Oblast id;
+                //if (Enum.TryParse(selected, out id))
+                //{
+                //    var region = ukraine.Regions.SingleOrDefault(r => r.Id == id);
+                //    if (region != null)
+                //        //textBox1.Text = region.FactorValues[0].ToString();
+                //}
 
                
             }
@@ -88,13 +107,6 @@ namespace Region
             RefColor();         
         }
         
-
-        public Form1()
-        {
-            InitializeComponent();           
-            dataGridView1.DataSource = ukraine.Factors;
-            image.Refresh();
-        }
 
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -163,9 +175,9 @@ namespace Region
 
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
-            label1.Text = "Weighting factor value" +  " " + trackBar1.Value;
+
         }
     }
 }
