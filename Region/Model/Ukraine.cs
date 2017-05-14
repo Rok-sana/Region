@@ -10,13 +10,13 @@ namespace Region.Model
 {
      public enum Oblast
     {
-        Lutsk,
-        Rivno,
-        Zhytomyr,
+        Volynska=1,
+        Rivno=2,
+        Zhytomyr=3,
         Kyiv,
         Lviv,
         Ternopil,
-        Volynska,
+        Ivano_Frankivsk,
         Zakarpattya,
         Cherovtsy,
         Khmelnitsky,
@@ -38,8 +38,8 @@ namespace Region.Model
 }
     public class Ukraine
     {     
-        public const int FACTORS_NUMBER = 11;
-        public const int REGIONS_COUNT = 5;
+        public const int FACTORS_NUMBER = 8;
+        public const int REGIONS_COUNT = 24;
 
         public Dictionary <Oblast, InvRegion> Regions;
         public List<Factor> Factors;
@@ -50,7 +50,8 @@ namespace Region.Model
             Conturs = new Conturs();
 
             // Regions    
-            Regions = new Dictionary<Oblast, InvRegion>();
+            
+           Regions = new Dictionary<Oblast, InvRegion>();
             using (StreamReader reader = new StreamReader("Regions.txt"))
             {
                 for( int i=0; i< REGIONS_COUNT; i++)
@@ -62,7 +63,9 @@ namespace Region.Model
 
                     for ( int j =0; j< arr.Length; j++)
                     {
-                        m[j] = Convert.ToDouble(arr[j].Trim());
+                        
+                            m[j] = Convert.ToDouble(arr[j].Trim());
+                        
                     }
 
                     Regions[id] = new InvRegion( id, name, m);
@@ -73,8 +76,8 @@ namespace Region.Model
             // Factors            
             Factors = new List<Factor>();
 
-            double[] coefs = { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1 };
-            string[] names = { "Strength", "Valid", "Salary", "Incomes", " Retail", "Waste", "Balance", "Taxation", "OverhaulInvestments", "Crime", "Corruption" };
+            double[] coefs = { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9  };
+            string[] names = { "Strength", "Valid", "Salary", "Incomes", " Retail", "Waste", "Balance", "Taxation", "OverhaulInvestments"};
             for (int i = 0; i < FACTORS_NUMBER; i++)
             {
                 Factor f = new Factor
@@ -94,10 +97,21 @@ namespace Region.Model
         {
             double[,] matrix;
             matrix = new double[FACTORS_NUMBER, REGIONS_COUNT];
-            for ( int i=0; i< FACTORS_NUMBER; i++)
-                for ( int j=0; j< REGIONS_COUNT; j++)
-                    matrix[i, j] = Regions[(Oblast)j].FactorValues[i];
+            for (int i = 0; i < FACTORS_NUMBER; i++)
+                for (int j = 0; j < REGIONS_COUNT; j++)
+                {
+                    Oblast e2 = (Oblast)j;
+                    InvRegion value;
+                    Regions.TryGetValue(e2, out value);
+                    if (value != null)
+                    {
+                        // System.Diagnostics.Debug.WriteLine( value.Name);
+                        matrix[i, j] = value.FactorValues[i];
+                        //matrix[i, j] = Regions[(Oblast)j].FactorValues[i];
 
+                    }
+                    
+                }
             // нормализация факторов
             for (int i = 0; i < FACTORS_NUMBER; i++)
             {
