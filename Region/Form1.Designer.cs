@@ -102,7 +102,7 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.trackBar1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.trackBar1.Location = new System.Drawing.Point(160, 51);
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(104, 45);

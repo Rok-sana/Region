@@ -61,7 +61,7 @@ namespace Region
            var max= inv.Max(d => d);
            var min=  inv.Min(d => d);
            var p= (int)((inv[i]-min) * 255 / (max - min));
-           return Color.FromArgb(0, p, 0);
+           return Color.FromArgb(p, 0, 0);
         }
 
  
@@ -193,7 +193,7 @@ namespace Region
 
         private void trackBar_ValueChanged(object sender, EventArgs e)
         {
-            int i = (int)(sender as TrackBar).Tag;
+            int i = Convert.ToInt32((sender as TrackBar).Tag);
             ukraine.Factors[i].Coef = (sender as TrackBar).Value/10.0;
 
         }
