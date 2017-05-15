@@ -35,12 +35,27 @@ namespace Region
         {
             factorNamelabel0.Text= ukraine.Factors[0].Name;
             factorNamelabel1.Text = ukraine.Factors[1].Name;
+            factorNamelabel2.Text = ukraine.Factors[2].Name;
+            factorNamelabel3.Text = ukraine.Factors[3].Name;
+            factorNamelabel4.Text = ukraine.Factors[4].Name;
+            factorNamelabel5.Text = ukraine.Factors[5].Name;
+            factorNamelabel6.Text = ukraine.Factors[6].Name;
+            factorNamelabel7.Text = ukraine.Factors[7].Name;
+            factorNamelabel8.Text = ukraine.Factors[8].Name;
         }
         private void UiChange(int idx)
         {
             factorValuelabel0.Text = ukraine.Regions[idx].FactorValues[0].ToString();
             factorValuelabel1.Text = ukraine.Regions[idx].FactorValues[1].ToString();
+            factorValuelabel2.Text = ukraine.Regions[idx].FactorValues[2].ToString();
+            factorValuelabel3.Text = ukraine.Regions[idx].FactorValues[3].ToString();
+            factorValuelabel4.Text = ukraine.Regions[idx].FactorValues[4].ToString();
+            factorValuelabel5.Text = ukraine.Regions[idx].FactorValues[5].ToString();
+            factorValuelabel6.Text = ukraine.Regions[idx].FactorValues[6].ToString();
+            factorValuelabel7.Text = ukraine.Regions[idx].FactorValues[7].ToString();
+            factorValuelabel8.Text = ukraine.Regions[idx].FactorValues[8].ToString();
         }
+         
         public void  RefColor()
         {
             Graphics g =  image.CreateGraphics();
@@ -61,7 +76,20 @@ namespace Region
            var max= inv.Max(d => d);
            var min=  inv.Min(d => d);
            var p= (int)((inv[i]-min) * 255 / (max - min));
-           return Color.FromArgb(p, 0, 0);
+            if (inv[i] < 0.08)
+            {
+                return Color.FromArgb(100, p, 0, p);
+            }
+            else if (inv[i] > 0.08 && inv[i] < 1.0)
+            {
+                return Color.FromArgb(100, 0, p/2 , p);
+
+            }
+            else if (inv[i] > 1.0 && inv[i] < 1.5)
+            {
+                return Color.FromArgb(100, 0, p, 0);
+            }
+            return Color.FromArgb(100,0, 2*p/2, 0);
         }
 
  
@@ -203,6 +231,9 @@ namespace Region
 
         }
 
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 }
