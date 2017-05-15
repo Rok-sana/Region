@@ -35,20 +35,19 @@
             this.image = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.factorValuelabel1 = new System.Windows.Forms.Label();
             this.factorNamelabel1 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackBar0 = new System.Windows.Forms.TrackBar();
             this.factorValuelabel0 = new System.Windows.Forms.Label();
             this.factorNamelabel0 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.factorBindingSource)).BeginInit();
             this.outerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar0)).BeginInit();
             this.SuspendLayout();
             // 
             // outerPanel
@@ -90,11 +89,10 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.trackBar2);
+            this.panel1.Controls.Add(this.trackBar1);
             this.panel1.Controls.Add(this.factorValuelabel1);
             this.panel1.Controls.Add(this.factorNamelabel1);
-            this.panel1.Controls.Add(this.trackBar1);
+            this.panel1.Controls.Add(this.trackBar0);
             this.panel1.Controls.Add(this.factorValuelabel0);
             this.panel1.Controls.Add(this.factorNamelabel0);
             this.panel1.Location = new System.Drawing.Point(678, 36);
@@ -102,12 +100,17 @@
             this.panel1.Size = new System.Drawing.Size(283, 364);
             this.panel1.TabIndex = 7;
             // 
-            // trackBar2
+            // trackBar1
             // 
-            this.trackBar2.Location = new System.Drawing.Point(160, 42);
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(104, 45);
-            this.trackBar2.TabIndex = 5;
+            this.trackBar1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.trackBar1.Location = new System.Drawing.Point(160, 51);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(104, 45);
+            this.trackBar1.TabIndex = 5;
+            this.trackBar1.Tag = "1";
+            this.trackBar1.Value = 5;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar2_Scroll);
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // factorValuelabel1
             // 
@@ -129,12 +132,15 @@
             this.factorNamelabel1.TabIndex = 3;
             this.factorNamelabel1.Text = "label1";
             // 
-            // trackBar1
+            // trackBar0
             // 
-            this.trackBar1.Location = new System.Drawing.Point(160, 20);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 45);
-            this.trackBar1.TabIndex = 2;
+            this.trackBar0.Location = new System.Drawing.Point(160, 20);
+            this.trackBar0.Name = "trackBar0";
+            this.trackBar0.Size = new System.Drawing.Size(104, 45);
+            this.trackBar0.TabIndex = 2;
+            this.trackBar0.Tag = "0";
+            this.trackBar0.Value = 5;
+            this.trackBar0.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // factorValuelabel0
             // 
@@ -167,14 +173,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(70, 140);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 6;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,8 +193,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.image)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar0)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,14 +206,13 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.PictureBox image;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackBar0;
         private System.Windows.Forms.Label factorValuelabel0;
         private System.Windows.Forms.Label factorNamelabel0;
-        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label factorValuelabel1;
         private System.Windows.Forms.Label factorNamelabel1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

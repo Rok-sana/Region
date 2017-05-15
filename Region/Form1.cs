@@ -20,11 +20,15 @@ namespace Region
         Ukraine ukraine = new Ukraine();
         private string current = null;
 
+        Factor f = new Factor();
+
         public Form1()
         {
             InitializeComponent();
             image.Refresh();
             UiInit();
+            trackBar0.DataBindings.Add(new Binding("Value", f, "Coef"));
+            
         }
 
         private void UiInit()
@@ -32,10 +36,10 @@ namespace Region
             factorNamelabel0.Text= ukraine.Factors[0].Name;
             factorNamelabel1.Text = ukraine.Factors[1].Name;
         }
-        private void UiChange(Oblast id)
+        private void UiChange(int idx)
         {
-            factorValuelabel0.Text = ukraine.Regions[id].FactorValues[0].ToString();
-            factorValuelabel1.Text = ukraine.Regions[id].FactorValues[1].ToString();
+            factorValuelabel0.Text = ukraine.Regions[idx].FactorValues[0].ToString();
+            factorValuelabel1.Text = ukraine.Regions[idx].FactorValues[1].ToString();
         }
         public void  RefColor()
         {
@@ -67,8 +71,10 @@ namespace Region
             string selected = ukraine.Conturs.GetPoligonePointInto(e.Location);
             if (selected != null)
             {
-                Oblast id = (Oblast)Enum.Parse(typeof(Oblast), selected);
-                UiChange(id);
+                int idx = (int)Enum.Parse(typeof(Oblast), selected);
+                UiChange(idx);
+                double[] inv = ukraine.ObInvestAppRegions();
+                Text = inv[idx].ToString();
             }
            
         }
@@ -184,5 +190,19 @@ namespace Region
         {
 
         }
+
+        private void trackBar_ValueChanged(object sender, EventArgs e)
+        {
+            int i = (int)(sender as TrackBar).Tag;
+            ukraine.Factors[i].Coef = (sender as TrackBar).Value/10.0;
+
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
