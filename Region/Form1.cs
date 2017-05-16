@@ -31,34 +31,31 @@ namespace Region
             
         }
 
-        // Create labels, trackbars and initilaze trackbars with Coef values
-        //
         private void UiInit()
         {
-            for (int i = 0; i < Ukraine.FACTORS_NUMBER; i++)
-            {
-                Label l = (Label)Controls.Find("factorNamelabel" + i, true)[0];
-                l.Text = ukraine.Factors[i].Name;
-
-                l = (Label)Controls.Find("factorValuelabel" + i, true)[0];
-                l.Text = ukraine.Regions[0].FactorValues[i].ToString();
-
-                TrackBar t = (TrackBar)Controls.Find("TrackBar" + i, true)[0];
-                t.Value = (int)((ukraine.Factors[i].Coef * 10) + 0.5);
-            }
+            factorNamelabel0.Text= ukraine.Factors[0].Name;
+            factorNamelabel1.Text = ukraine.Factors[1].Name;
+            factorNamelabel2.Text = ukraine.Factors[2].Name;
+            factorNamelabel3.Text = ukraine.Factors[3].Name;
+            factorNamelabel4.Text = ukraine.Factors[4].Name;
+            factorNamelabel5.Text = ukraine.Factors[5].Name;
+            factorNamelabel6.Text = ukraine.Factors[6].Name;
+            factorNamelabel7.Text = ukraine.Factors[7].Name;
+            factorNamelabel8.Text = ukraine.Factors[8].Name;
         }
-
-        // Show factor values for a region
-        //
-        private void UiChange(int region_idx)
+        private void UiChange(int idx)
         {
-            for (int i = 0; i < Ukraine.FACTORS_NUMBER; i++)
-            {
-                Label l = (Label)Controls.Find("factorValuelabel" + i, true)[0];
-                l.Text = ukraine.Regions[region_idx].FactorValues[i].ToString();
-            }
+            factorValuelabel0.Text = ukraine.Regions[idx].FactorValues[0].ToString();
+            factorValuelabel1.Text = ukraine.Regions[idx].FactorValues[1].ToString();
+            factorValuelabel2.Text = ukraine.Regions[idx].FactorValues[2].ToString();
+            factorValuelabel3.Text = ukraine.Regions[idx].FactorValues[3].ToString();
+            factorValuelabel4.Text = ukraine.Regions[idx].FactorValues[4].ToString();
+            factorValuelabel5.Text = ukraine.Regions[idx].FactorValues[5].ToString();
+            factorValuelabel6.Text = ukraine.Regions[idx].FactorValues[6].ToString();
+            factorValuelabel7.Text = ukraine.Regions[idx].FactorValues[7].ToString();
+            factorValuelabel8.Text = ukraine.Regions[idx].FactorValues[8].ToString();
         }
-
+         
         public void  RefColor()
         {
             Graphics g =  image.CreateGraphics();
