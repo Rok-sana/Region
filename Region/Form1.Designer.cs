@@ -36,10 +36,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.panel1 = new System.Windows.Forms.Panel();
             this.trackBar8 = new System.Windows.Forms.TrackBar();
+            this.trackBar6 = new System.Windows.Forms.TrackBar();
             this.factorValuelabel8 = new System.Windows.Forms.Label();
             this.factorNamelabel8 = new System.Windows.Forms.Label();
             this.trackBar7 = new System.Windows.Forms.TrackBar();
-            this.trackBar6 = new System.Windows.Forms.TrackBar();
             this.factorValuelabel7 = new System.Windows.Forms.Label();
             this.factorNamelabel7 = new System.Windows.Forms.Label();
             this.factorValuelabel6 = new System.Windows.Forms.Label();
@@ -68,8 +68,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -90,18 +90,19 @@
             this.outerPanel.Name = "outerPanel";
             this.outerPanel.Size = new System.Drawing.Size(645, 365);
             this.outerPanel.TabIndex = 5;
-            this.outerPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // image
             // 
+            this.image.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.image.ErrorImage = ((System.Drawing.Image)(resources.GetObject("image.ErrorImage")));
             this.image.Image = ((System.Drawing.Image)(resources.GetObject("image.Image")));
             this.image.Location = new System.Drawing.Point(0, 0);
             this.image.Name = "image";
-            this.image.Size = new System.Drawing.Size(850, 504);
+            this.image.Size = new System.Drawing.Size(852, 506);
             this.image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.image.TabIndex = 2;
             this.image.TabStop = false;
+            this.image.MouseDown += new System.Windows.Forms.MouseEventHandler(this.image_MouseDown);
             this.image.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pBox_MouseMove);
             // 
             // menuStrip1
@@ -148,7 +149,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(283, 364);
             this.panel1.TabIndex = 7;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
             // 
             // trackBar8
             // 
@@ -159,6 +159,16 @@
             this.trackBar8.TabIndex = 27;
             this.trackBar8.Tag = "1";
             this.trackBar8.Value = 5;
+            // 
+            // trackBar6
+            // 
+            this.trackBar6.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.trackBar6.Location = new System.Drawing.Point(160, 234);
+            this.trackBar6.Name = "trackBar6";
+            this.trackBar6.Size = new System.Drawing.Size(104, 45);
+            this.trackBar6.TabIndex = 23;
+            this.trackBar6.Tag = "1";
+            this.trackBar6.Value = 5;
             // 
             // factorValuelabel8
             // 
@@ -188,16 +198,6 @@
             this.trackBar7.TabIndex = 24;
             this.trackBar7.Tag = "0";
             this.trackBar7.Value = 5;
-            // 
-            // trackBar6
-            // 
-            this.trackBar6.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.trackBar6.Location = new System.Drawing.Point(160, 234);
-            this.trackBar6.Name = "trackBar6";
-            this.trackBar6.Size = new System.Drawing.Size(104, 45);
-            this.trackBar6.TabIndex = 23;
-            this.trackBar6.Tag = "1";
-            this.trackBar6.Value = 5;
             // 
             // factorValuelabel7
             // 
@@ -366,7 +366,6 @@
             this.trackBar1.TabIndex = 5;
             this.trackBar1.Tag = "1";
             this.trackBar1.Value = 5;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // factorValuelabel1
@@ -418,7 +417,6 @@
             this.factorNamelabel0.Size = new System.Drawing.Size(35, 13);
             this.factorNamelabel0.TabIndex = 0;
             this.factorNamelabel0.Text = "label1";
-            this.factorNamelabel0.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -451,8 +449,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();

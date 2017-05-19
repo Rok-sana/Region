@@ -8,34 +8,34 @@ using System.IO;
 
 namespace Region.Model
 {
-     public enum Oblast
-    {
-        Volynska,
-        Rivno,
-        Zhytomyr,
-        Kyiv,
-        Lviv,
-        Ternopil,
-        Ivano_Frankivsk,
-        Zakarpattya,
-        Cherovtsy,
-        Khmelnitsky,
-        Vinnytsia,
-        Poltava,
-        Odesa,
-        Chernigov,
-        Sumy,
-        Kirovograd,
-        Cherkasy,
-        Nikolaev,
-        Kharkiv,
-        Dnipropetrovsk,
-        Kherson,
-        Crimea,
-        Zaporozhia,
-        Luhansk,
-        Donetsk
-}
+//     public enum Oblast
+//    {
+//        Volynska = 0,  
+//        Rivno,
+//        Zhytomyr,
+//        Kyiv,
+//        Lviv,
+//        Ternopil,
+//        Ivano_Frankivsk,
+//        Zakarpattya,
+//        Cherovtsy,
+//        Khmelnitsky,
+//        Vinnytsia,
+//        Poltava,
+//        Odesa,
+//        Chernigov,
+//        Sumy,
+//        Kirovograd,
+//        Cherkasy,
+//        Nikolaev,
+//        Kharkiv,
+//        Dnipropetrovsk,
+//        Kherson,
+//        Crimea,
+//        Zaporozhia,
+//        Luhansk,
+//        Donetsk
+//}
     public class Ukraine
     {     
         public const int FACTORS_NUMBER = 9;
@@ -43,11 +43,12 @@ namespace Region.Model
 
         public List< InvRegion> Regions;
         public List<Factor> Factors;
-        public Conturs Conturs;
+        public ConturList ConturList;
+
 
         public Ukraine()
         {
-            Conturs = new Conturs();
+            ConturList = new ConturList("xconturs.txt");
 
             // Regions    
 
@@ -56,16 +57,16 @@ namespace Region.Model
             {
                 for (int i = 0; i < REGIONS_COUNT; i++)
                 {
-                    Oblast id = (Oblast)Convert.ToInt32(reader.ReadLine());
+                    int conturIndex = Convert.ToInt32(reader.ReadLine());
                     string name = reader.ReadLine();
                     string[] arr = reader.ReadLine().Split(',');
-                    double[] m = new double[arr.Length];
+                    double[] factorValues = new double[arr.Length];
 
                     for (int j = 0; j < arr.Length; j++)
                     {
-                        m[j] = Convert.ToDouble(arr[j].Trim());
+                        factorValues[j] = Convert.ToDouble(arr[j].Trim());
                     }
-                    Regions.Add ( new InvRegion(id, name, m));
+                    Regions.Add ( new InvRegion(conturIndex, name, factorValues));
                 }
             }
 
@@ -87,9 +88,9 @@ namespace Region.Model
 
        
 
-            // пересчитать инвестиционную привлекательность регионов
-
-            public double [] ObInvestAppRegions()
+        // пересчитать инвестиционную привлекательность регионов
+        //
+        public double [] ObInvestAppRegions()
         {
             double[,] matrix;
             matrix = new double[FACTORS_NUMBER, REGIONS_COUNT];

@@ -18,7 +18,6 @@ namespace Region
     {
         
         Ukraine ukraine = new Ukraine();
-        private string current = null;
 
         public Form1()
         {
@@ -61,10 +60,10 @@ namespace Region
             double[] inv = ukraine.ObInvestAppRegions();
             for(int i=0; i< Ukraine.REGIONS_COUNT; i++)
             {
-                string name = ((Oblast)i).ToString();
+                ////string name = ((Oblast)i).ToString();
                 Color c= AppealToColor(inv, i);             
                 Brush brush = new SolidBrush(c);
-                g.FillPolygon(brush, ukraine.Conturs[name]);
+                g.FillPolygon(brush, ukraine.ConturList.List[i]);
                
             }
        
@@ -94,43 +93,19 @@ namespace Region
  
         private void pBox_MouseMove(object sender, MouseEventArgs e)
         {
-            HiLightRegion(new Point((int)(e.X), (int)(e.Y)));
-            string selected = ukraine.Conturs.GetPoligonePointInto(e.Location);
-            if (selected != null)
-            {
-                int idx = (int)Enum.Parse(typeof(Oblast), selected);
-                UiChange(idx);
-                double[] inv = ukraine.ObInvestAppRegions();
-                Text = inv[idx].ToString();
-            }
            
         }
 
         
         void HiLightRegion(Point p)
         {
-            string selected = ukraine.Conturs.GetPoligonePointInto(p);
-            if (selected != current)
+            Graphics g = image.CreateGraphics();
+            image.Refresh();
+            var points = ukraine.ConturList.ContursAroundPoint(p).FirstOrDefault();
+            if (points != null)
             {
-                Graphics g = image.CreateGraphics();
-                image.Refresh();
-                if (selected != null)
-                {
-                    var ps = ukraine.Conturs[selected].Select(pt => new Point((int)(pt.X), (int)(pt.Y))).ToArray();
-                    g.DrawLines(new Pen(Color.Yellow, 2), ps);
-                }
-                current = selected;
-                //Oblast id;
-                //if (Enum.TryParse(selected, out id))
-                //{
-                //    var region = ukraine.Regions.SingleOrDefault(r => r.Id == id);
-                //    if (region != null)
-                //        //textBox1.Text = region.FactorValues[0].ToString();
-                //}
-
-               
+                g.DrawLines(new Pen(Color.Yellow, 2), points);
             }
-
         }
 
 
@@ -139,11 +114,9 @@ namespace Region
             image.Refresh();
             RefColor();         
         }
-        
 
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
-        {
+
            //// Ukraine ukraine = new Ukraine();
            // double[] inv = ukraine.ObInvestAppRegions();
            // Oblast id;
@@ -172,7 +145,7 @@ namespace Region
                         //        //g.(new Pen(Color.Yellow, 2), ps);
                         //        Brush n = new SolidBrush(Color.FromArgb(100, 200, 0, 0));
                         //e.Graphics.FillPolygon(n, ukraine.Conturs[selected]);
-                    }
+                
 
 
                     //}
@@ -188,36 +161,6 @@ namespace Region
 
                     //}
 
-                
-
-            
-        
-
-
-
-
-
-
-
-
-
-        
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void trackBar_ValueChanged(object sender, EventArgs e)
         {
             int i = Convert.ToInt32((sender as TrackBar).Tag);
@@ -225,13 +168,19 @@ namespace Region
 
         }
 
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
 
-        }
 
-        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        private void image_MouseDown(object sender, MouseEventArgs e)
         {
+            HiLightRegion(new Point((int)(e.X), (int)(e.Y)));
+            
+
+
+            //int idx = (int)Enum.Parse(typeof(Oblast), selected);
+            //    UiChange(idx);
+            //    double[] inv = ukraine.ObInvestAppRegions();
+            //    Text = inv[idx].ToString();
+            //}
 
         }
     }

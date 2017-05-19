@@ -56,6 +56,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\ConturList.cs" />
     <Compile Include="Model\Factor.cs" />
     <Compile Include="Model\InvRegion.cs" />
     <Compile Include="Model\Ukraine.cs" />
@@ -85,6 +86,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Txt\coef.txt" />
+    <Content Include="Txt\Regions.txt" />
+    <Content Include="Txt\xconturs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
