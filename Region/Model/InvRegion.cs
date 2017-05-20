@@ -8,15 +8,15 @@ namespace Region.Model
 {
     public class InvRegion
     {
-        public Oblast Id;
+        public int ConturIndex;
         public string Name;
         public double [] FactorValues;
 
-        public InvRegion(Oblast id,string name, double[] values)
+        public InvRegion(int conturIndex, string name, double[] factorValues)
         {
-            Id = id;
+            ConturIndex = conturIndex;
             Name = name;
-            FactorValues = values;            
+            FactorValues = factorValues;            
         }
     }
 }

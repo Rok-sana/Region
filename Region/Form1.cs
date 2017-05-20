@@ -1,74 +1,61 @@
-﻿using Contur;
-using Region.Model;
+﻿using Region.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Region
 {
-    
 
     public partial class Form1 : Form
-    {
-        
+    {        
         Ukraine ukraine = new Ukraine();
-        private string current = null;
-
-        Factor f = new Factor();
+        public ConturHelper conturHelper = new ConturHelper("xconturs.txt");
 
         public Form1()
         {
             InitializeComponent();
             image.Refresh();
             UiInit();
-            trackBar0.DataBindings.Add(new Binding("Value", f, "Coef"));
-            
         }
 
+        // Create labels, trackbars and initilaze trackbars with Coef values
+        //
         private void UiInit()
         {
-            factorNamelabel0.Text= ukraine.Factors[0].Name;
-            factorNamelabel1.Text = ukraine.Factors[1].Name;
-            factorNamelabel2.Text = ukraine.Factors[2].Name;
-            factorNamelabel3.Text = ukraine.Factors[3].Name;
-            factorNamelabel4.Text = ukraine.Factors[4].Name;
-            factorNamelabel5.Text = ukraine.Factors[5].Name;
-            factorNamelabel6.Text = ukraine.Factors[6].Name;
-            factorNamelabel7.Text = ukraine.Factors[7].Name;
-            factorNamelabel8.Text = ukraine.Factors[8].Name;
-        }
-        private void UiChange(int idx)
-        {
-            factorValuelabel0.Text = ukraine.Regions[idx].FactorValues[0].ToString();
-            factorValuelabel1.Text = ukraine.Regions[idx].FactorValues[1].ToString();
-            factorValuelabel2.Text = ukraine.Regions[idx].FactorValues[2].ToString();
-            factorValuelabel3.Text = ukraine.Regions[idx].FactorValues[3].ToString();
-            factorValuelabel4.Text = ukraine.Regions[idx].FactorValues[4].ToString();
-            factorValuelabel5.Text = ukraine.Regions[idx].FactorValues[5].ToString();
-            factorValuelabel6.Text = ukraine.Regions[idx].FactorValues[6].ToString();
-            factorValuelabel7.Text = ukraine.Regions[idx].FactorValues[7].ToString();
-            factorValuelabel8.Text = ukraine.Regions[idx].FactorValues[8].ToString();
-        }
-         
-        public void  RefColor()
-        {
-            Graphics g =  image.CreateGraphics();
-            double[] inv = ukraine.ObInvestAppRegions();
-            for(int i=0; i< Ukraine.REGIONS_COUNT; i++)
+            for (int i = 0; i < Ukraine.FACTORS_NUMBER; i++)
             {
-                string name = ((Oblast)i).ToString();
+                Label l = (Label)Controls.Find("factorNamelabel" + i, true)[0];
+                l.Text = ukraine.Factors[i].Name;
+
+                l = (Label)Controls.Find("factorValuelabel" + i, true)[0];
+                l.Text = ukraine.Regions[0].FactorValues[i].ToString();
+
+                TrackBar t = (TrackBar)Controls.Find("TrackBar" + i, true)[0];
+                t.Value = (int)((ukraine.Factors[i].Coef * 10) + 0.5);
+            }
+        }
+
+        // Show factor values for a region
+        //
+        private void UiChange(int region_idx)
+        {
+            for (int i = 0; i < Ukraine.FACTORS_NUMBER; i++)
+            {
+                Label l = (Label)Controls.Find("factorValuelabel" + i, true)[0];
+                l.Text = ukraine.Regions[region_idx].FactorValues[i].ToString();
+            }
+        }
+
+        public void  RefColor(Graphics g)
+        {
+            double[] inv = ukraine.ObInvestAppRegions();
+            for(int i = 0; i < Ukraine.REGIONS_COUNT; i++)
+            {
                 Color c= AppealToColor(inv, i);             
                 Brush brush = new SolidBrush(c);
-                g.FillPolygon(brush, ukraine.Conturs[name]);
-               
-            }
-       
+                g.FillPolygon(brush, conturHelper.List[i]);              
+            }      
         }
 
         private Color AppealToColor(double[] inv, int i)
@@ -93,147 +80,42 @@ namespace Region
         }
 
  
-        private void pBox_MouseMove(object sender, MouseEventArgs e)
-        {
-            HiLightRegion(new Point((int)(e.X), (int)(e.Y)));
-            string selected = ukraine.Conturs.GetPoligonePointInto(e.Location);
-            if (selected != null)
-            {
-                int idx = (int)Enum.Parse(typeof(Oblast), selected);
-                UiChange(idx);
-                double[] inv = ukraine.ObInvestAppRegions();
-                Text = inv[idx].ToString();
-            }
-           
-        }
-
-        
-        void HiLightRegion(Point p)
-        {
-            string selected = ukraine.Conturs.GetPoligonePointInto(p);
-            if (selected != current)
-            {
-                Graphics g = image.CreateGraphics();
-                image.Refresh();
-                if (selected != null)
-                {
-                    var ps = ukraine.Conturs[selected].Select(pt => new Point((int)(pt.X), (int)(pt.Y))).ToArray();
-                    g.DrawLines(new Pen(Color.Yellow, 2), ps);
-                }
-                current = selected;
-                //Oblast id;
-                //if (Enum.TryParse(selected, out id))
-                //{
-                //    var region = ukraine.Regions.SingleOrDefault(r => r.Id == id);
-                //    if (region != null)
-                //        //textBox1.Text = region.FactorValues[0].ToString();
-                //}
-
-               
-            }
-
-        }
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            image.Refresh();
-            RefColor();         
-        }
-        
-
-
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-           //// Ukraine ukraine = new Ukraine();
-           // double[] inv = ukraine.ObInvestAppRegions();
-           // Oblast id;
-           // using (StreamReader reader = new StreamReader("Regions.txt"))
-           // {
-           //     for (int i = 0; i < Ukraine.REGIONS_COUNT; i++)
-           //     {
-           //      if( selected = ukraine.Conturs.GetPoligonePointInto(ukraine.Conturs[selected]);
-           // for (int i = 0; i < Ukraine.REGIONS_COUNT; i++)
-           // {
-
-           //     //выбрать цвет
-           //     if (inv[i] >= 1)
-           //     {
-                    
-           //         if (Enum.TryParse(selected, out id))
-           //         {
-           //             Brush n = new SolidBrush(Color.FromArgb(100, 200, 0, 0));
-           //             e.Graphics.FillPolygon(n, ukraine.Conturs[selected]);
-                        //    var region = ukraine.Regions.SingleOrDefault(r => r.Id == id);
-
-                        //    if (region != null)
-
-                        //        textBox1.Text = region.FactorValues[0].ToString();
-                        //    //var ps = ukraine.Conturs[selected].Select(pt => new Point((int)(pt.X), (int)(pt.Y))).ToArray();
-                        //        //g.(new Pen(Color.Yellow, 2), ps);
-                        //        Brush n = new SolidBrush(Color.FromArgb(100, 200, 0, 0));
-                        //e.Graphics.FillPolygon(n, ukraine.Conturs[selected]);
-                    }
-
-
-                    //}
-                    //else if (inv[i] <= 0.9 && inv[i] >= 0.6)
-                    //{
-                    //    Brush b = new SolidBrush(Color.FromArgb(100, 100, 0, 0));
-                    //    e.Graphics.FillPolygon(b, arr);
-                    //}
-                    //else
-                    //{
-                    //    Brush b = new SolidBrush(Color.FromArgb(100, 0, 0, 0));
-                    //    e.Graphics.FillPolygon(b, arr);
-
-                    //}
-
-                
-
-            
-        
-
-
-
-
-
-
-
-
-
-        
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void trackBar_ValueChanged(object sender, EventArgs e)
         {
             int i = Convert.ToInt32((sender as TrackBar).Tag);
             ukraine.Factors[i].Coef = (sender as TrackBar).Value/10.0;
-
+            image.Refresh();
         }
 
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
 
+        private void image_MouseDown(object sender, MouseEventArgs e)
+        {
+            HiLightRegion(e.Location);
+            
+            // UI Change 
+            int conturIndex = conturHelper.ConturIndexAroundPoint(e.Location);
+            InvRegion region = ukraine.Regions.Single(r => r.ConturIndex == conturIndex);
+            int regionIndex = ukraine.Regions.IndexOf(region);
+            UiChange(regionIndex);
+
+            Text = region.Name;
         }
 
-        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        void HiLightRegion(Point p)
         {
+            image.Refresh();
+            Graphics g = image.CreateGraphics();
+            var points = conturHelper.ContursAroundPoint(p).FirstOrDefault();
+            if (points != null)
+            {
+                g.DrawLines(new Pen(Color.Yellow, 2), points);
+            }
+        }
 
+        private void image_Paint(object sender, PaintEventArgs e)
+        {
+            if (conturHelper != null)
+                RefColor(e.Graphics);
         }
     }
 }
