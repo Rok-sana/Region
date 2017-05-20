@@ -87,7 +87,7 @@
             this.outerPanel.Controls.Add(this.image);
             this.outerPanel.Location = new System.Drawing.Point(12, 36);
             this.outerPanel.Name = "outerPanel";
-            this.outerPanel.Size = new System.Drawing.Size(645, 365);
+            this.outerPanel.Size = new System.Drawing.Size(864, 525);
             this.outerPanel.TabIndex = 5;
             // 
             // image
@@ -108,7 +108,7 @@
             // 
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(973, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1192, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -144,9 +144,9 @@
             this.panel1.Controls.Add(this.trackBar0);
             this.panel1.Controls.Add(this.factorValuelabel0);
             this.panel1.Controls.Add(this.factorNamelabel0);
-            this.panel1.Location = new System.Drawing.Point(678, 36);
+            this.panel1.Location = new System.Drawing.Point(897, 36);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(283, 364);
+            this.panel1.Size = new System.Drawing.Size(283, 524);
             this.panel1.TabIndex = 7;
             // 
             // trackBar8
@@ -158,6 +158,7 @@
             this.trackBar8.TabIndex = 27;
             this.trackBar8.Tag = "1";
             this.trackBar8.Value = 5;
+            this.trackBar8.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // trackBar6
             // 
@@ -168,6 +169,7 @@
             this.trackBar6.TabIndex = 23;
             this.trackBar6.Tag = "1";
             this.trackBar6.Value = 5;
+            this.trackBar6.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // factorValuelabel8
             // 
@@ -197,6 +199,7 @@
             this.trackBar7.TabIndex = 24;
             this.trackBar7.Tag = "0";
             this.trackBar7.Value = 5;
+            this.trackBar7.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // factorValuelabel7
             // 
@@ -247,6 +250,7 @@
             this.trackBar5.TabIndex = 17;
             this.trackBar5.Tag = "1";
             this.trackBar5.Value = 5;
+            this.trackBar5.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // factorValuelabel5
             // 
@@ -276,6 +280,7 @@
             this.trackBar4.TabIndex = 14;
             this.trackBar4.Tag = "0";
             this.trackBar4.Value = 5;
+            this.trackBar4.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // factorValuelabel4
             // 
@@ -306,6 +311,7 @@
             this.trackBar3.TabIndex = 11;
             this.trackBar3.Tag = "1";
             this.trackBar3.Value = 5;
+            this.trackBar3.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // factorValuelabel3
             // 
@@ -335,6 +341,7 @@
             this.trackBar2.TabIndex = 8;
             this.trackBar2.Tag = "0";
             this.trackBar2.Value = 5;
+            this.trackBar2.ValueChanged += new System.EventHandler(this.trackBar_ValueChanged);
             // 
             // factorValuelabel2
             // 
@@ -422,12 +429,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(973, 413);
+            this.ClientSize = new System.Drawing.Size(1192, 573);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.outerPanel);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "Form1";
             this.Text = "Investment regions";
             ((System.ComponentModel.ISupportInitialize)(this.factorBindingSource)).EndInit();

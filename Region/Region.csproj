@@ -90,6 +90,7 @@
   <ItemGroup>
     <Content Include="Txt\coef.txt" />
     <Content Include="Txt\Regions.txt" />
+    <Content Include="Txt\todo.txt" />
     <Content Include="Txt\xconturs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

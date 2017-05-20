@@ -89,16 +89,18 @@ namespace Region
 
 
         private void image_MouseDown(object sender, MouseEventArgs e)
-        {
-            HiLightRegion(e.Location);
-            
-            // UI Change 
+        { 
             int conturIndex = conturHelper.ConturIndexAroundPoint(e.Location);
-            InvRegion region = ukraine.Regions.Single(r => r.ConturIndex == conturIndex);
-            int regionIndex = ukraine.Regions.IndexOf(region);
-            UiChange(regionIndex);
+            if (conturIndex < Ukraine.REGIONS_COUNT)
+            {
+                HiLightRegion(e.Location);
+            
+                InvRegion region = ukraine.Regions.Single(r => r.ConturIndex == conturIndex);
+                int regionIndex = ukraine.Regions.IndexOf(region);
+                UiChange(regionIndex);
 
-            Text = region.Name;
+                Text = region.Name;
+            }
         }
 
         void HiLightRegion(Point p)
@@ -106,10 +108,7 @@ namespace Region
             image.Refresh();
             Graphics g = image.CreateGraphics();
             var points = conturHelper.ContursAroundPoint(p).FirstOrDefault();
-            if (points != null)
-            {
-                g.DrawLines(new Pen(Color.Yellow, 2), points);
-            }
+            g.DrawLines(new Pen(Color.Yellow, 2), points);
         }
 
         private void image_Paint(object sender, PaintEventArgs e)
