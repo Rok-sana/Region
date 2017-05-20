@@ -1,23 +1,16 @@
-﻿using Contur;
-using Region.Model;
+﻿using Region.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Region
 {
-    
 
     public partial class Form1 : Form
-    {
-        
+    {        
         Ukraine ukraine = new Ukraine();
+        public ConturHelper conturHelper = new ConturHelper("xconturs.txt");
 
         public Form1()
         {
@@ -54,19 +47,15 @@ namespace Region
             }
         }
 
-        public void  RefColor()
+        public void  RefColor(Graphics g)
         {
-            Graphics g =  image.CreateGraphics();
             double[] inv = ukraine.ObInvestAppRegions();
-            for(int i=0; i< Ukraine.REGIONS_COUNT; i++)
+            for(int i = 0; i < Ukraine.REGIONS_COUNT; i++)
             {
-                ////string name = ((Oblast)i).ToString();
                 Color c= AppealToColor(inv, i);             
                 Brush brush = new SolidBrush(c);
-                g.FillPolygon(brush, ukraine.ConturList.List[i]);
-               
-            }
-       
+                g.FillPolygon(brush, conturHelper.List[i]);              
+            }      
         }
 
         private Color AppealToColor(double[] inv, int i)
@@ -91,54 +80,42 @@ namespace Region
         }
 
  
-        private void pBox_MouseMove(object sender, MouseEventArgs e)
+        private void trackBar_ValueChanged(object sender, EventArgs e)
         {
-           
+            int i = Convert.ToInt32((sender as TrackBar).Tag);
+            ukraine.Factors[i].Coef = (sender as TrackBar).Value/10.0;
+            image.Refresh();
         }
 
-        
+
+        private void image_MouseDown(object sender, MouseEventArgs e)
+        {
+            HiLightRegion(e.Location);
+            
+            // UI Change 
+            int conturIndex = conturHelper.ConturIndexAroundPoint(e.Location);
+            InvRegion region = ukraine.Regions.Single(r => r.ConturIndex == conturIndex);
+            int regionIndex = ukraine.Regions.IndexOf(region);
+            UiChange(regionIndex);
+
+            Text = region.Name;
+        }
+
         void HiLightRegion(Point p)
         {
-            Graphics g = image.CreateGraphics();
             image.Refresh();
-            var points = ukraine.ConturList.ContursAroundPoint(p).FirstOrDefault();
+            Graphics g = image.CreateGraphics();
+            var points = conturHelper.ContursAroundPoint(p).FirstOrDefault();
             if (points != null)
             {
                 g.DrawLines(new Pen(Color.Yellow, 2), points);
             }
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void image_Paint(object sender, PaintEventArgs e)
         {
-            image.Refresh();
-            RefColor();         
-        }
-
-
-
-           
-                   
-
-        private void trackBar_ValueChanged(object sender, EventArgs e)
-        {
-            int i = Convert.ToInt32((sender as TrackBar).Tag);
-            ukraine.Factors[i].Coef = (sender as TrackBar).Value/10.0;
-
-        }
-
-
-
-        private void image_MouseDown(object sender, MouseEventArgs e)
-        {
-            HiLightRegion(new Point((int)(e.X), (int)(e.Y)));
-            //define conturs number
-             
-            int conturIndex = ukraine.ConturList.ConturIndexAroundPoint(e.Location);
-            InvRegion region = ukraine.Regions.Single(r => r.ConturIndex == conturIndex);
-            Text = region.Name;
-            int regionIndex = ukraine.Regions.IndexOf(region);
-            UiChange(regionIndex);
+            if (conturHelper != null)
+                RefColor(e.Graphics);
         }
     }
 }

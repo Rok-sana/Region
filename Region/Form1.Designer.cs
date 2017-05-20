@@ -62,7 +62,6 @@
             this.trackBar0 = new System.Windows.Forms.TrackBar();
             this.factorValuelabel0 = new System.Windows.Forms.Label();
             this.factorNamelabel0 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.factorBindingSource)).BeginInit();
             this.outerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
@@ -102,8 +101,8 @@
             this.image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.image.TabIndex = 2;
             this.image.TabStop = false;
+            this.image.Paint += new System.Windows.Forms.PaintEventHandler(this.image_Paint);
             this.image.MouseDown += new System.Windows.Forms.MouseEventHandler(this.image_MouseDown);
-            this.image.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pBox_MouseMove);
             // 
             // menuStrip1
             // 
@@ -418,23 +417,12 @@
             this.factorNamelabel0.TabIndex = 0;
             this.factorNamelabel0.Text = "label1";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(678, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(973, 413);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.outerPanel);
             this.Controls.Add(this.menuStrip1);
@@ -474,7 +462,6 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label factorValuelabel1;
         private System.Windows.Forms.Label factorNamelabel1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TrackBar trackBar5;
         private System.Windows.Forms.Label factorValuelabel5;
         private System.Windows.Forms.Label factorNamelabel5;

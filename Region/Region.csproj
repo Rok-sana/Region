@@ -56,7 +56,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\ConturList.cs" />
+    <Compile Include="Model\ConturHelper.cs" />
     <Compile Include="Model\Factor.cs" />
     <Compile Include="Model\InvRegion.cs" />
     <Compile Include="Model\Ukraine.cs" />

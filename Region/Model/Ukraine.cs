@@ -43,12 +43,10 @@ namespace Region.Model
 
         public List< InvRegion> Regions;
         public List<Factor> Factors;
-        public ConturList ConturList;
 
 
         public Ukraine()
         {
-            ConturList = new ConturList("xconturs.txt");
 
             // Regions    
 
