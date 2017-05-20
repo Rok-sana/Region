@@ -22,12 +22,16 @@ namespace Region.Model
 
         public ConturList(string fname)
         {
-            var lines = File.ReadAllLines(fname);
+            string[] lines = File.ReadAllLines(fname);
             _list = new List<Point[]>();
             foreach (string line in lines)
             {
                 var nums = line.Split(',').Select(s => Convert.ToInt32(s)).ToArray();
-                var ps = nums.Select((x, i) => i % 2 == 1 ? new Point(nums[i - 1], x) : new Point(-1, -1)).Where(p => p.X != -1);
+                var ps = new List<Point>();
+                for(int i = 1; i < nums.Length; i += 2)
+                {
+                    ps.Add(new Point(nums[i - 1], nums[i]));
+                }
                 _list.Add(ps.ToArray());
             }
         }
@@ -56,9 +60,22 @@ namespace Region.Model
         }
 
 
-        public IEnumerable<Point[]> ContursAroundPoint(Point location)
+        public IEnumerable<Point[]> ContursAroundPoint(Point p)
         {
-            return _list.Where(c => IsInside(c, location));
+            return _list.Where(c => IsInside(c, p));
+        }
+
+        public int ConturIndexAroundPoint( Point p)
+        {
+            var ps = ContursAroundPoint(p).FirstOrDefault().ToArray();
+            for(int i =0; i<_list.Count; i++)
+            {
+                if (ps.SequenceEqual(_list[i])){
+                    return i;
+                }
+  
+            }
+            return -1;
         }
 
         static bool IsInside(Point[] ps, Point p)

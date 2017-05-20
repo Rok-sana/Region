@@ -117,49 +117,8 @@ namespace Region
 
 
 
-           //// Ukraine ukraine = new Ukraine();
-           // double[] inv = ukraine.ObInvestAppRegions();
-           // Oblast id;
-           // using (StreamReader reader = new StreamReader("Regions.txt"))
-           // {
-           //     for (int i = 0; i < Ukraine.REGIONS_COUNT; i++)
-           //     {
-           //      if( selected = ukraine.Conturs.GetPoligonePointInto(ukraine.Conturs[selected]);
-           // for (int i = 0; i < Ukraine.REGIONS_COUNT; i++)
-           // {
-
-           //     //выбрать цвет
-           //     if (inv[i] >= 1)
-           //     {
-                    
-           //         if (Enum.TryParse(selected, out id))
-           //         {
-           //             Brush n = new SolidBrush(Color.FromArgb(100, 200, 0, 0));
-           //             e.Graphics.FillPolygon(n, ukraine.Conturs[selected]);
-                        //    var region = ukraine.Regions.SingleOrDefault(r => r.Id == id);
-
-                        //    if (region != null)
-
-                        //        textBox1.Text = region.FactorValues[0].ToString();
-                        //    //var ps = ukraine.Conturs[selected].Select(pt => new Point((int)(pt.X), (int)(pt.Y))).ToArray();
-                        //        //g.(new Pen(Color.Yellow, 2), ps);
-                        //        Brush n = new SolidBrush(Color.FromArgb(100, 200, 0, 0));
-                        //e.Graphics.FillPolygon(n, ukraine.Conturs[selected]);
-                
-
-
-                    //}
-                    //else if (inv[i] <= 0.9 && inv[i] >= 0.6)
-                    //{
-                    //    Brush b = new SolidBrush(Color.FromArgb(100, 100, 0, 0));
-                    //    e.Graphics.FillPolygon(b, arr);
-                    //}
-                    //else
-                    //{
-                    //    Brush b = new SolidBrush(Color.FromArgb(100, 0, 0, 0));
-                    //    e.Graphics.FillPolygon(b, arr);
-
-                    //}
+           
+                   
 
         private void trackBar_ValueChanged(object sender, EventArgs e)
         {
@@ -173,15 +132,13 @@ namespace Region
         private void image_MouseDown(object sender, MouseEventArgs e)
         {
             HiLightRegion(new Point((int)(e.X), (int)(e.Y)));
-            
-
-
-            //int idx = (int)Enum.Parse(typeof(Oblast), selected);
-            //    UiChange(idx);
-            //    double[] inv = ukraine.ObInvestAppRegions();
-            //    Text = inv[idx].ToString();
-            //}
-
+            //define conturs number
+             
+            int conturIndex = ukraine.ConturList.ConturIndexAroundPoint(e.Location);
+            InvRegion region = ukraine.Regions.Single(r => r.ConturIndex == conturIndex);
+            Text = region.Name;
+            int regionIndex = ukraine.Regions.IndexOf(region);
+            UiChange(regionIndex);
         }
     }
 }
