@@ -1,5 +1,4 @@
 ﻿using System;
-using Contur;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,34 +7,6 @@ using System.IO;
 
 namespace Region.Model
 {
-//     public enum Oblast
-//    {
-//        Volynska = 0,  
-//        Rivno,
-//        Zhytomyr,
-//        Kyiv,
-//        Lviv,
-//        Ternopil,
-//        Ivano_Frankivsk,
-//        Zakarpattya,
-//        Cherovtsy,
-//        Khmelnitsky,
-//        Vinnytsia,
-//        Poltava,
-//        Odesa,
-//        Chernigov,
-//        Sumy,
-//        Kirovograd,
-//        Cherkasy,
-//        Nikolaev,
-//        Kharkiv,
-//        Dnipropetrovsk,
-//        Kherson,
-//        Crimea,
-//        Zaporozhia,
-//        Luhansk,
-//        Donetsk
-//}
     public class Ukraine
     {     
         public const int FACTORS_NUMBER = 9;
@@ -88,32 +59,34 @@ namespace Region.Model
 
         // пересчитать инвестиционную привлекательность регионов
         //
-        public double [] ObInvestAppRegions()
+        public double [] InvestAppRegions()
         {
-            double[,] matrix;
-            matrix = new double[FACTORS_NUMBER, REGIONS_COUNT];
-            for (int i = 0; i < FACTORS_NUMBER; i++)
-                for (int j = 0; j < REGIONS_COUNT; j++)
+            // собираем все в матрицу, 1-й индекс - факторы, 2-й - регионы
+            double[,] matrix = new double[FACTORS_NUMBER, REGIONS_COUNT];
+            for (int f = 0; f < FACTORS_NUMBER; f++)
+                for (int r = 0; r < REGIONS_COUNT; r++)
                 {
-                   InvRegion region= Regions[j];
-                   matrix[i, j] = region.FactorValues[i];
+                   InvRegion region = Regions[r];
+                   matrix[f, r] = region.FactorValues[f];
                 }
+
             // нормализация факторов
-            for (int i = 0; i < FACTORS_NUMBER; i++)
+            for (int f = 0; f < FACTORS_NUMBER; f++)
             {
-                double max = matrix[i, 0];
-                for (int j = 0; j < REGIONS_COUNT; j++)
-                    if (matrix[i, j] > max)
-                        max=matrix[i,j];
-                for (int j = 0; j < REGIONS_COUNT; j++)
-                    matrix[i, j] /= max ;
+                double max = matrix[f, 0];
+                for (int r = 0; r < REGIONS_COUNT; r++)
+                    if (matrix[f, r] > max)
+                        max = matrix[f,r];
+                for (int r = 0; r < REGIONS_COUNT; r++)
+                    matrix[f, r] /= max ;
             }
-            // подсчет привлекательности
+
+            // подсчет привлекательности с учетом коэффициентов
             double[] sums = new double[REGIONS_COUNT];
-            double sumCoefs =Factors.Sum(f=>f.Coef);
-            for (int j = 0; j < REGIONS_COUNT; j++)
-                for (int i = 0; i < FACTORS_NUMBER; i++)
-                    sums[j] =(sums[j]+ matrix[i, j] * Factors[i].Coef)/sumCoefs;
+            double sumCoefs = Factors.Sum(f=>f.Coef);
+            for (int r = 0; r < REGIONS_COUNT; r++)
+                for (int f = 0; f < FACTORS_NUMBER; f++)
+                    sums[r] =(sums[r]+ matrix[f, r] * Factors[f].Coef)/sumCoefs;
             return sums;
         }
 
