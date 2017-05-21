@@ -117,6 +117,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.regionLabel);
             this.panel1.Controls.Add(this.trackBar8);
@@ -146,7 +147,7 @@
             this.panel1.Controls.Add(this.trackBar0);
             this.panel1.Controls.Add(this.factorValuelabel0);
             this.panel1.Controls.Add(this.factorNamelabel0);
-            this.panel1.Location = new System.Drawing.Point(897, 28);
+            this.panel1.Location = new System.Drawing.Point(897, 27);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(281, 543);
             this.panel1.TabIndex = 7;
@@ -518,6 +519,7 @@
             this.Controls.Add(this.outerPanel);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "Form1";
             this.Text = "Investment Regions";
