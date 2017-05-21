@@ -9,6 +9,6 @@ namespace Region.Model
     {
         public string Name { set; get; }
         public double Coef { set; get; }
-
+        public string Comment { set; get; }
     }
 }

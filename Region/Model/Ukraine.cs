@@ -47,8 +47,9 @@ namespace Region.Model
                 {
                    Factor fc = new Factor
                    {
-                      Name = readers.ReadLine(),
-                      Coef = Convert.ToDouble(readers.ReadLine())
+                       Name = readers.ReadLine(),
+                       Comment = readers.ReadLine(),
+                       Coef = Convert.ToDouble(readers.ReadLine())
                    };
                    Factors.Add(fc);
                 }

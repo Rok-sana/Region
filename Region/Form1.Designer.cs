@@ -34,6 +34,8 @@
             this.outerPanel = new System.Windows.Forms.Panel();
             this.image = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.regionLabel = new System.Windows.Forms.Label();
             this.trackBar8 = new System.Windows.Forms.TrackBar();
             this.trackBar6 = new System.Windows.Forms.TrackBar();
             this.factorValuelabel8 = new System.Windows.Forms.Label();
@@ -61,14 +63,13 @@
             this.trackBar0 = new System.Windows.Forms.TrackBar();
             this.factorValuelabel0 = new System.Windows.Forms.Label();
             this.factorNamelabel0 = new System.Windows.Forms.Label();
-            this.regionLabel = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.factorBindingSource)).BeginInit();
             this.outerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
@@ -100,7 +101,7 @@
             // 
             // image
             // 
-            this.image.ErrorImage = ((System.Drawing.Image)(resources.GetObject("image.ErrorImage")));
+            this.image.ErrorImage = null;
             this.image.Image = ((System.Drawing.Image)(resources.GetObject("image.Image")));
             this.image.Location = new System.Drawing.Point(10, 9);
             this.image.Name = "image";
@@ -149,6 +150,29 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(281, 543);
             this.panel1.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label1.Location = new System.Drawing.Point(168, 53);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 13);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "0 .........0.5.......1.0";
+            // 
+            // regionLabel
+            // 
+            this.regionLabel.AutoSize = true;
+            this.regionLabel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.regionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.regionLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.regionLabel.Location = new System.Drawing.Point(14, 20);
+            this.regionLabel.Name = "regionLabel";
+            this.regionLabel.Size = new System.Drawing.Size(81, 20);
+            this.regionLabel.TabIndex = 28;
+            this.regionLabel.Text = "Volynska";
             // 
             // trackBar8
             // 
@@ -438,18 +462,6 @@
             this.factorNamelabel0.TabIndex = 0;
             this.factorNamelabel0.Text = "label1";
             // 
-            // regionLabel
-            // 
-            this.regionLabel.AutoSize = true;
-            this.regionLabel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.regionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.regionLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.regionLabel.Location = new System.Drawing.Point(14, 20);
-            this.regionLabel.Name = "regionLabel";
-            this.regionLabel.Size = new System.Drawing.Size(81, 20);
-            this.regionLabel.TabIndex = 28;
-            this.regionLabel.Text = "Volynska";
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -473,12 +485,12 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -493,19 +505,8 @@
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem1.Text = "About";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(168, 53);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 13);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "0 .........0.5.......1.0";
             // 
             // Form1
             // 
@@ -582,6 +583,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

@@ -27,6 +27,7 @@ namespace Region
             {
                 Label l = (Label)Controls.Find("factorNamelabel" + i, true)[0];
                 l.Text = ukraine.Factors[i].Name;
+                toolTip1.SetToolTip(l, ukraine.Factors[i].Comment);
 
                 l = (Label)Controls.Find("factorValuelabel" + i, true)[0];
                 l.Text = ukraine.Regions[0].FactorValues[i].ToString();
