@@ -35,9 +35,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Contur">
-      <HintPath>..\..\ПРОЭКТЫ\Contur-master\Contur\bin\Debug\Contur.exe</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -88,9 +85,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Txt\coef.txt" />
-    <Content Include="Txt\Regions.txt" />
-    <Content Include="Txt\xconturs.txt" />
+    <Content Include="coef.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Regions.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\image.ErrorImage.jpg" />
+    <None Include="Resources\image.Image.png" />
+    <Content Include="Txt\todo.txt" />
+    <Content Include="Txt\Ukraine.png" />
+    <Content Include="Txt\UkraineEn.png" />
+    <Content Include="Txt\UkraineEng.png" />
+    <Content Include="xconturs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

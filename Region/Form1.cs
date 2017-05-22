@@ -27,6 +27,7 @@ namespace Region
             {
                 Label l = (Label)Controls.Find("factorNamelabel" + i, true)[0];
                 l.Text = ukraine.Factors[i].Name;
+                toolTip1.SetToolTip(l, ukraine.Factors[i].Comment);
 
                 l = (Label)Controls.Find("factorValuelabel" + i, true)[0];
                 l.Text = ukraine.Regions[0].FactorValues[i].ToString();
@@ -47,39 +48,6 @@ namespace Region
             }
         }
 
-        public void  RefColor(Graphics g)
-        {
-            double[] inv = ukraine.ObInvestAppRegions();
-            for(int i = 0; i < Ukraine.REGIONS_COUNT; i++)
-            {
-                Color c= AppealToColor(inv, i);             
-                Brush brush = new SolidBrush(c);
-                g.FillPolygon(brush, conturHelper.List[i]);              
-            }      
-        }
-
-        private Color AppealToColor(double[] inv, int i)
-        {
-           var max= inv.Max(d => d);
-           var min=  inv.Min(d => d);
-           var p= (int)((inv[i]-min) * 255 / (max - min));
-            if (inv[i] < 0.08)
-            {
-                return Color.FromArgb(100, p, 0, p);
-            }
-            else if (inv[i] > 0.08 && inv[i] < 1.0)
-            {
-                return Color.FromArgb(100, 0, p/2 , p);
-
-            }
-            else if (inv[i] > 1.0 && inv[i] < 1.5)
-            {
-                return Color.FromArgb(100, 0, p, 0);
-            }
-            return Color.FromArgb(100,0, 2*p/2, 0);
-        }
-
- 
         private void trackBar_ValueChanged(object sender, EventArgs e)
         {
             int i = Convert.ToInt32((sender as TrackBar).Tag);
@@ -89,16 +57,18 @@ namespace Region
 
 
         private void image_MouseDown(object sender, MouseEventArgs e)
-        {
-            HiLightRegion(e.Location);
-            
-            // UI Change 
+        { 
             int conturIndex = conturHelper.ConturIndexAroundPoint(e.Location);
-            InvRegion region = ukraine.Regions.Single(r => r.ConturIndex == conturIndex);
-            int regionIndex = ukraine.Regions.IndexOf(region);
-            UiChange(regionIndex);
+            if (conturIndex < Ukraine.REGIONS_COUNT)
+            {
+                HiLightRegion(e.Location);
+            
+                InvRegion region = ukraine.Regions.Single(r => r.ConturIndex == conturIndex);
+                int regionIndex = ukraine.Regions.IndexOf(region);
+                UiChange(regionIndex);
 
-            Text = region.Name;
+                regionLabel.Text = region.Name;
+            }
         }
 
         void HiLightRegion(Point p)
@@ -106,16 +76,59 @@ namespace Region
             image.Refresh();
             Graphics g = image.CreateGraphics();
             var points = conturHelper.ContursAroundPoint(p).FirstOrDefault();
-            if (points != null)
-            {
-                g.DrawLines(new Pen(Color.Yellow, 2), points);
-            }
+            g.DrawLines(new Pen(Color.Blue, 3), points);
         }
 
         private void image_Paint(object sender, PaintEventArgs e)
         {
             if (conturHelper != null)
-                RefColor(e.Graphics);
+                RefreshColor(e.Graphics);
+        }
+
+        public void RefreshColor(Graphics g)
+        {
+            double[] inv = ukraine.InvestAppRegions();
+            for (int i = 0; i < Ukraine.REGIONS_COUNT; i++)
+            {
+                Color c = RaitToColor(inv, i);
+                Brush brush = new SolidBrush(c);
+                g.FillPolygon(brush, conturHelper.List[i]);
+            }
+        }
+
+        private Color RaitToColor(double[] inv, int i)
+        {            
+            int rait = inv.Count(n => n <= inv[i]);
+            int green = rait * 255 / Ukraine.REGIONS_COUNT;
+            return Color.FromArgb(100, 255 - green, green, 0);
+        }
+
+
+        private Color AppealToColor(double[] inv, int i)
+        {
+            var A = 100;
+            var max = inv.Max(d => d);
+            var min = inv.Min(d => d);
+            var p = (int)((inv[i] - min) * 255 / (max - min));
+            if (inv[i] < 0.08)
+            {
+                return Color.FromArgb(A, p, 0, p);
+            }
+            else if (inv[i] > 0.08 && inv[i] < 1.0)
+            {
+                return Color.FromArgb(A, 0, p / 2, p);
+
+            }
+            else if (inv[i] > 1.0 && inv[i] < 1.5)
+            {
+                return Color.FromArgb(A, 0, p, 0);
+            }
+            return Color.FromArgb(A, 0, 2 * p / 2, 0);
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
