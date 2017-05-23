@@ -87,20 +87,34 @@ namespace Region
 
         public void RefreshColor(Graphics g)
         {
-            double[] inv = ukraine.InvestAppRegions();
+            double[] regionInvApps = ukraine.InvestAppRegions();
+
+            // чем привлекательней, тем выше рейтинг
+            int[] raits = Enumerable.Range(0, Ukraine.REGIONS_COUNT)
+                .Select(i => regionInvApps.Count(n => n <= regionInvApps[i]))
+                .ToArray();
+
             for (int i = 0; i < Ukraine.REGIONS_COUNT; i++)
             {
-                Color c = RaitToColor(inv, i);
-                Brush brush = new SolidBrush(c);
+                Color color = RaitToColor(raits[i]);
+                Brush brush = new SolidBrush(color);
                 g.FillPolygon(brush, conturHelper.List[i]);
             }
+            // sort regions by rait
+            string[] names = ukraine.Regions
+                .Select((r, i) => new { r.Name, Rait = raits[i] })
+                .OrderByDescending(a => a.Rait)
+                .Select((a, i) => (1 + i) + ". " + a.Name).ToArray();
+
+            raitLabel.Text = string.Join("\r\n", names);
         }
 
-        private Color RaitToColor(double[] inv, int i)
-        {            
-            int rait = inv.Count(n => n <= inv[i]);
-            int green = rait * 255 / Ukraine.REGIONS_COUNT;
-            return Color.FromArgb(100, 255 - green, green, 0);
+        private Color RaitToColor(int rait)
+        {
+            // out = alpha * new + (1 - alpha) * old
+                      
+            int red = rait * 255 / Ukraine.REGIONS_COUNT;
+            return Color.FromArgb(100, red, 255 - red, 0);
         }
 
 
@@ -129,6 +143,11 @@ namespace Region
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -74,20 +74,28 @@ namespace Region.Model
             // нормализация факторов
             for (int f = 0; f < FACTORS_NUMBER; f++)
             {
+                double min = matrix[f, 0];
                 double max = matrix[f, 0];
                 for (int r = 0; r < REGIONS_COUNT; r++)
+                {
+                    if (matrix[f, r] < min)
+                        min = matrix[f, r];
                     if (matrix[f, r] > max)
-                        max = matrix[f,r];
+                        max = matrix[f, r];
+                }
                 for (int r = 0; r < REGIONS_COUNT; r++)
-                    matrix[f, r] /= max ;
+                    matrix[f, r] = (matrix[f, r] - min) / (max - min) ;
             }
 
             // подсчет привлекательности с учетом коэффициентов
             double[] sums = new double[REGIONS_COUNT];
-            double sumCoefs = Factors.Sum(f=>f.Coef);
+            double sumCoefs = Factors.Sum(f => f.Coef);
             for (int r = 0; r < REGIONS_COUNT; r++)
+            {
                 for (int f = 0; f < FACTORS_NUMBER; f++)
-                    sums[r] =(sums[r]+ matrix[f, r] * Factors[f].Coef)/sumCoefs;
+                    sums[r] += matrix[f, r] * Factors[f].Coef;
+                sums[r] /= sumCoefs;
+            }
             return sums;
         }
 
