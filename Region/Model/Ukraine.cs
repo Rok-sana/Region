@@ -60,7 +60,7 @@ namespace Region.Model
 
         // пересчитать инвестиционную привлекательность регионов
         //
-        public double [] InvestAppRegions()
+        public void CalcInvestAppRegions()
         {
             // собираем все в матрицу, 1-й индекс - факторы, 2-й - регионы
             double[,] matrix = new double[FACTORS_NUMBER, REGIONS_COUNT];
@@ -94,9 +94,9 @@ namespace Region.Model
             {
                 for (int f = 0; f < FACTORS_NUMBER; f++)
                     sums[r] += matrix[f, r] * Factors[f].Coef;
-                sums[r] /= sumCoefs;
+                Regions[r].InvApp = sums[r] / sumCoefs;
             }
-            return sums;
+  
         }
 
 

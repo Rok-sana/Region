@@ -96,6 +96,9 @@
     <Content Include="Txt\todo.txt" />
     <Content Include="Txt\Ukraine.png" />
     <Content Include="Txt\UkraineEng.png" />
+    <Content Include="UkraineTrans.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="xconturs.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

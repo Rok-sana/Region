@@ -11,6 +11,7 @@ namespace Region.Model
         public int ConturIndex;
         public string Name;
         public double [] FactorValues;
+        public double InvApp;   // for outer using
 
         public InvRegion(int conturIndex, string name, double[] factorValues)
         {
